@@ -127,7 +127,7 @@ services:
 
   device-mqtt:
     user: "2000:2000"
-    image: edgexfoundry/docker-device-mqtt-go:1.2.0
+    image: niluwin/docker-device-mqtt-go:1.2.0
     container_name: edgex-device-mqtt
     hostname: edgex-device-mqtt
     environment:
@@ -135,8 +135,6 @@ services:
       Service_Host: edgex-device-mqtt
       Service_Port: 48100
     <<: *logging
-    volumes:
-      - ./res/device-mqtt:/res:ro
     depends_on:
       - data
       - command
@@ -240,10 +238,8 @@ services:
       - "127.0.0.1:48099:48099"
 
   mqtt-broker:
-    image: eclipse-mosquitto:1.6.3
+    image: niluwin/eclipse-mosquitto:1.6.3
     container_name: mqtt-broker
-    volumes:
-      - ./res/mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
     <<: *logging
     depends_on:
       - data
