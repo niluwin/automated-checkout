@@ -44,6 +44,8 @@ services:
     environment:
       - EDGEX_DB=redis
       - EDGEX_SECURE=false
+    networks:
+    - default
 
   redis:
     image: redis:5.0.8-alpine
