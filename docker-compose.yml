@@ -39,8 +39,8 @@ services:
       - consul-data:/consul/data:z
     restart: always
     ports:
-      - "127.0.0.1:8400:8400"
-      - "127.0.0.1:8500:8500"
+      - "0.0.0.0:8400:8400"
+      - "0.0.0.0:8500:8500"
     environment:
       - EDGEX_DB=redis
       - EDGEX_SECURE=false
@@ -50,7 +50,7 @@ services:
   redis:
     image: redis:5.0.8-alpine
     ports:
-      - "127.0.0.1:6379:6379"
+      - "0.0.0.0:6379:6379"
     container_name: edgex-redis
     hostname: edgex-redis
     environment:
@@ -76,7 +76,7 @@ services:
       - redis
     restart: always
     ports:
-      - "127.0.0.1:48060:48060"
+      - "0.0.0.0:48060:48060"
     networks:
       - default
 
@@ -94,7 +94,7 @@ services:
       - notifications
     restart: always
     ports:
-      - "127.0.0.1:48081:48081"
+      - "0.0.0.0:48081:48081"
     networks:
       - default
 
@@ -111,8 +111,8 @@ services:
       - metadata
     restart: always
     ports:
-      - "127.0.0.1:48080:48080"
-      - "127.0.0.1:5563:5563"
+      - "0.0.0.0:48080:48080"
+      - "0.0.0.0:5563:5563"
     networks:
       - default
 
@@ -129,7 +129,7 @@ services:
       - metadata
     restart: always
     ports:
-      - "127.0.0.1:48082:48082"
+      - "0.0.0.0:48082:48082"
     networks:
       - default
 
@@ -153,7 +153,7 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:48100:48100"
+      - "0.0.0.0:48100:48100"
     networks:
       - default
 
@@ -171,7 +171,7 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:48098:48098"
+      - "0.0.0.0:48098:48098"
     networks:
       - default
 
@@ -189,7 +189,7 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:48097:48097"
+      - "0.0.0.0:48097:48097"
     networks:
       - default
 
@@ -202,7 +202,7 @@ services:
     depends_on:
       - mqtt-broker
     ports:
-      - "127.0.0.1:9005:9005"
+      - "0.0.0.0:9005:9005"
     networks:
       - default
 
@@ -225,7 +225,7 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:48094:48094"
+      - "0.0.0.0:48094:48094"
     networks:
       - default
 
@@ -257,7 +257,7 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:48099:48099"
+      - "0.0.0.0:48099:48099"
     networks:
       - default
 
@@ -270,8 +270,8 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:1883:1883"
-      - "127.0.0.1:9001:9001"
+      - "0.0.0.0:1883:1883"
+      - "0.0.0.0:9001:9001"
     networks:
       - default
 
@@ -290,7 +290,7 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:48096:48096"
+      - "0.0.0.0:48096:48096"
     networks:
       - default
 
@@ -309,7 +309,7 @@ services:
     <<: *logging
     restart: always
     ports:
-      - "127.0.0.1:48095:48095"
+      - "0.0.0.0:48095:48095"
     networks:
       - default
 
@@ -329,7 +329,7 @@ services:
     restart: always
     ipc: none
     ports:
-      - "127.0.0.1:48093:48093"
+      - "0.0.0.0:48093:48093"
     networks:
       - default
 
