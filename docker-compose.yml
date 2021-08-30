@@ -45,7 +45,7 @@ services:
       - EDGEX_DB=redis
       - EDGEX_SECURE=false
     networks:
-    - default
+      - default
 
   redis:
     image: redis:5.0.8-alpine
@@ -57,6 +57,8 @@ services:
       <<: *common-variables
     volumes:
       - db-data:/data:z
+    networks:
+      - default
 
   notifications:
     image: edgexfoundry/docker-support-notifications-go:1.2.0
@@ -75,6 +77,8 @@ services:
     restart: always
     ports:
       - "127.0.0.1:48060:48060"
+    networks:
+      - default
 
   metadata:
     image: edgexfoundry/docker-core-metadata-go:1.2.0
@@ -91,6 +95,8 @@ services:
     restart: always
     ports:
       - "127.0.0.1:48081:48081"
+    networks:
+      - default
 
   data:
     image: edgexfoundry/docker-core-data-go:1.2.0
@@ -107,6 +113,8 @@ services:
     ports:
       - "127.0.0.1:48080:48080"
       - "127.0.0.1:5563:5563"
+    networks:
+      - default
 
   command:
     image: edgexfoundry/docker-core-command-go:1.2.0
@@ -122,6 +130,8 @@ services:
     restart: always
     ports:
       - "127.0.0.1:48082:48082"
+    networks:
+      - default
 
   #################################################################
   # Automated Checkout Microservices
@@ -144,6 +154,8 @@ services:
     ipc: none
     ports:
       - "127.0.0.1:48100:48100"
+    networks:
+      - default
 
   ds-card-reader:
     user: "2000:2000"
@@ -160,6 +172,8 @@ services:
     ipc: none
     ports:
       - "127.0.0.1:48098:48098"
+    networks:
+      - default
 
   ds-controller-board:
     user: "2000:2000"
@@ -176,6 +190,8 @@ services:
     ipc: none
     ports:
       - "127.0.0.1:48097:48097"
+    networks:
+      - default
 
   ds-cv-inference:
     user: "2000:2000"
@@ -187,6 +203,8 @@ services:
       - mqtt-broker
     ports:
       - "127.0.0.1:9005:9005"
+    networks:
+      - default
 
   as-controller-board-status:
     user: "2000:2000"
@@ -208,6 +226,8 @@ services:
     ipc: none
     ports:
       - "127.0.0.1:48094:48094"
+    networks:
+      - default
 
   as-vending:
     user: "2000:2000"
@@ -238,6 +258,8 @@ services:
     ipc: none
     ports:
       - "127.0.0.1:48099:48099"
+    networks:
+      - default
 
   mqtt-broker:
     image: niluwin/eclipse-mosquitto:1.6.3
@@ -250,6 +272,8 @@ services:
     ports:
       - "127.0.0.1:1883:1883"
       - "127.0.0.1:9001:9001"
+    networks:
+      - default
 
   ms-authentication:
     user: "2000:2000"
@@ -267,6 +291,8 @@ services:
     ipc: none
     ports:
       - "127.0.0.1:48096:48096"
+    networks:
+      - default
 
   ms-inventory:
     user: "2000:2000"
@@ -284,6 +310,8 @@ services:
     restart: always
     ports:
       - "127.0.0.1:48095:48095"
+    networks:
+      - default
 
   ms-ledger:
     user: "2000:2000"
@@ -302,6 +330,8 @@ services:
     ipc: none
     ports:
       - "127.0.0.1:48093:48093"
+    networks:
+      - default
 
 networks:
   default:
