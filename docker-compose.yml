@@ -138,7 +138,6 @@ services:
   #################################################################
 
   device-mqtt:
-    user: "2000:2000"
     image: niluwin/docker-device-mqtt-go:1.2.0
     container_name: edgex-device-mqtt
     hostname: edgex-device-mqtt
@@ -158,7 +157,6 @@ services:
       - default
 
   ds-card-reader:
-    user: "2000:2000"
     image: "niluwin/ds-card-reader:dev"
     container_name: automated-checkout_ds-card-reader
     environment:
@@ -176,7 +174,6 @@ services:
       - default
 
   ds-controller-board:
-    user: "2000:2000"
     image: "niluwin/ds-controller-board:dev"
     container_name: automated-checkout_ds-controller-board
     environment:
@@ -194,7 +191,6 @@ services:
       - default
 
   ds-cv-inference:
-    user: "2000:2000"
     image: niluwin/ds-cv-inference:dev
     container_name: automated-checkout_ds-cv-inference
     ipc: none
@@ -207,7 +203,6 @@ services:
       - default
 
   as-controller-board-status:
-    user: "2000:2000"
     image: "niluwin/as-controller-board-status:dev"
     container_name: automated-checkout_as-controller-board-status
     environment:
@@ -230,7 +225,6 @@ services:
       - default
 
   as-vending:
-    user: "2000:2000"
     image: "niluwin/as-vending:dev"
     container_name: automated-checkout_as-vending
     environment:
@@ -276,7 +270,6 @@ services:
       - default
 
   ms-authentication:
-    user: "2000:2000"
     image: "niluwin/ms-authentication:dev"
     container_name: automated-checkout_ms-authentication
     environment:
@@ -295,7 +288,6 @@ services:
       - default
 
   ms-inventory:
-    user: "2000:2000"
     image: "niluwin/ms-inventory:dev"
     container_name: automated-checkout_ms-inventory
     ipc: none
@@ -314,7 +306,6 @@ services:
       - default
 
   ms-ledger:
-    user: "2000:2000"
     image: "niluwin/ms-ledger:dev"
     container_name: automated-checkout_ms-ledger
     environment:
