@@ -30,7 +30,7 @@ volumes:
   consul-data:
 
 services:
-  consul:
+  edgex-core-consul:
     image: edgexfoundry/docker-edgex-consul:1.2.0
     container_name: edgex-core-consul
     hostname: edgex-core-consul
@@ -47,7 +47,7 @@ services:
     networks:
       - default
 
-  redis:
+  edgex-redis:
     image: redis:5.0.8-alpine
     ports:
       - "0.0.0.0:6379:6379"
@@ -60,7 +60,7 @@ services:
     networks:
       - default
 
-  notifications:
+  edgex-support-notifications:
     image: edgexfoundry/docker-support-notifications-go:1.2.0
     container_name: edgex-support-notifications
     hostname: edgex-support-notifications
@@ -72,15 +72,15 @@ services:
       Smtp_Sender: "your-email@site.com"
       Smtp_Subject: "Automated Checkout Maintenance Alert"
     depends_on:
-      - consul
-      - redis
+      - edgex-core-consul
+      - edgex-redis
     restart: always
     ports:
       - "0.0.0.0:48060:48060"
     networks:
       - default
 
-  metadata:
+  edgex-core-metadata:
     image: edgexfoundry/docker-core-metadata-go:1.2.0
     container_name: edgex-core-metadata
     hostname: edgex-core-metadata
@@ -89,16 +89,16 @@ services:
       Service_Host: edgex-core-metadata
       Notifications_Sender: edgex-core-metadata
     depends_on:
-      - consul
-      - redis
-      - notifications
+      - edgex-core-consul
+      - edgex-redis
+      - edgex-support-notifications
     restart: always
     ports:
       - "0.0.0.0:48081:48081"
     networks:
       - default
 
-  data:
+  edgex-core-data:
     image: edgexfoundry/docker-core-data-go:1.2.0
     container_name: edgex-core-data
     hostname: edgex-core-data
@@ -106,9 +106,9 @@ services:
       <<: *common-variables
       Service_Host: edgex-core-data
     depends_on:
-      - consul
-      - redis
-      - metadata
+      - edgex-core-consul
+      - edgex-redis
+      - edgex-core-metadata
     restart: always
     ports:
       - "0.0.0.0:48080:48080"
@@ -116,7 +116,7 @@ services:
     networks:
       - default
 
-  command:
+  edgex-core-command:
     image: edgexfoundry/docker-core-command-go:1.2.0
     container_name: edgex-core-command
     hostname: edgex-core-command
@@ -124,9 +124,9 @@ services:
       <<: *common-variables
       Service_Host: edgex-core-command
     depends_on:
-      - consul
-      - redis
-      - metadata
+      - edgex-core-consul
+      - edgex-redis
+      - edgex-core-metadata
     restart: always
     ports:
       - "0.0.0.0:48082:48082"
@@ -137,7 +137,7 @@ services:
   # Automated Checkout Microservices
   #################################################################
 
-  device-mqtt:
+  edgex-device-mqtt:
     image: niluwin/docker-device-mqtt-go:1.2.0
     container_name: edgex-device-mqtt
     hostname: edgex-device-mqtt
@@ -147,8 +147,8 @@ services:
       Service_Port: 48100
     <<: *logging
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     restart: always
     ipc: none
     ports:
@@ -164,8 +164,8 @@ services:
       Service_Host: ds-card-reader
     <<: *logging
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     restart: always
     ipc: none
     ports:
@@ -181,8 +181,8 @@ services:
       Service_Host: ds-controller-board
     <<: *logging
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     restart: always
     ipc: none
     ports:
@@ -215,8 +215,8 @@ services:
       ApplicationSettings_VendingEndpoint: "http://as-vending:48099/boardStatus"
     <<: *logging
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     restart: always
     ipc: none
     ports:
@@ -246,8 +246,8 @@ services:
       ApplicationSettings_LedgerService: http://ms-ledger:48093/ledger
     <<: *logging
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     restart: always
     ipc: none
     ports:
@@ -260,7 +260,7 @@ services:
     container_name: mqtt-broker
     <<: *logging
     depends_on:
-      - data
+      - edgex-core-data
     restart: always
     ipc: none
     ports:
@@ -278,8 +278,8 @@ services:
       MessageBus_SubscribeHost_Host: edgex-core-data
     <<: *logging
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     restart: always
     ipc: none
     ports:
@@ -292,8 +292,8 @@ services:
     container_name: automated-checkout_ms-inventory
     ipc: none
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     environment:
       <<: *common-variables
       Service_Host: ms-inventory
@@ -315,8 +315,8 @@ services:
       ApplicationSettings_InventoryEndpoint: http://ms-inventory:48095/inventory
     <<: *logging
     depends_on:
-      - data
-      - command
+      - edgex-core-data
+      - edgex-core-command
     restart: always
     ipc: none
     ports:
